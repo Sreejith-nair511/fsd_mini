@@ -1,0 +1,2 @@
+# fsd_mini
+FOR MERN_MINIPROJECT
