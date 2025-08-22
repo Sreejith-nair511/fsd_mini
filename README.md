@@ -1,7 +1,105 @@
-# DBMS_PROJECT 
-The sql structure and code 
--- PPMS (Personal Productivity Management System) - Full MySQL Script
+DBMS_PROJECT
 
+Personal Productivity Management System (PPMS)
+
+A database-driven mini-project for managing users, notes, progress tracking, and timers. The schema is fully normalized (3NF) with audit logging, stored procedures, views, triggers, and security.
+
+📌 Features
+
+User Management: Register/login with roles (user/admin).
+
+Notes: Create, edit, archive, delete with full audit history.
+
+Progress Tracker: Track tasks with status, percentage completion, and due dates.
+
+Timers: Focus timers (Pomodoro-style) with logs.
+
+Audit Logging: Triggers track updates and deletions on notes.
+
+Views: Summary dashboards (v_user_note_counts, v_progress_summary).
+
+Stored Routines: Functions & procedures for reusable logic.
+
+Transactions: Ensures atomic updates.
+
+Security: App user with least-privilege access.
+
+📂 Database Structure
+1. Create Database
+DROP DATABASE IF EXISTS ppms_db;
+CREATE DATABASE ppms_db CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE ppms_db;
+
+2. Core Tables
+
+users → Stores user info
+
+notes → Notes linked to users
+
+progress → Task tracker
+
+timers → Timer sessions
+
+note_audit → Audit history
+
+3. Views
+
+v_user_note_counts → Notes per user
+
+v_progress_summary → Task completion overview
+
+4. Stored Function
+fn_progress_bucket(pct INT) → Returns 'High', 'Medium', 'Low'
+
+5. Stored Procedures
+
+sp_create_user
+
+sp_add_note
+
+sp_update_progress
+
+6. Triggers
+
+trg_notes_before_update
+
+trg_notes_before_delete
+
+7. Transaction Example
+
+Ensures atomic note creation + progress update.
+
+🗂 SQL Script
+
+The full SQL script is inside this project.
+It includes:
+
+Schema (tables, FKs, constraints)
+
+Seed data (sample users, notes, tasks, timers)
+
+Views, functions, procedures, triggers
+
+Test queries
+
+Security setup (ppms_app user with least privilege)
+
+⚙️ How to Run
+
+Open MySQL Workbench or CLI.
+
+Copy the provided script into a SQL editor.
+
+Run the script to create database, tables, views, and insert data.
+
+Explore with:
+
+SELECT * FROM v_progress_summary;
+SELECT * FROM v_user_note_counts;
+
+📊 ER Diagram and script 
+-- PPMS (Personal Productivity Management System) - Full MySQL Script
+-- Generated: 20250822_044643
 
 -- 1) Create Database
 DROP DATABASE IF EXISTS ppms_db;
@@ -214,3 +312,21 @@ FLUSH PRIVILEGES;
 
 -- 10) Backup note:
 -- mysqldump -u root -p ppms_db > ppms_db_backup.sql
+
+er diagram 
+<img width="931" height="840" alt="ppms_er_20250822_044643 png" src="https://github.com/user-attachments/assets/19eb788a-8742-4f61-a2db-c783cb6868da" />
+
+
+
+
+🔮 Future Enhancements
+
+Tagging for notes (many-to-many).
+
+Soft deletes with deleted_at.
+
+Row-level security.
+
+Event-driven archiving & partitioning.
+
+Full-text search in notes.
